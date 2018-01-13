@@ -1,1 +1,4 @@
-stl_files
+gcode/
+cura_stuff/
+other_stl_files/
+/*.stl
