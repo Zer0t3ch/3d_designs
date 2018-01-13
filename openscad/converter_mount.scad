@@ -5,13 +5,15 @@ angle=45;
 corner_offset=[margin+diam/2,margin+diam/2,0];
 standoff_thick=1;
 standoff_height=6;
+$fn=20;
 
 // Modules
 module hole() cylinder(d=diam, h=thick);
-module support() {
+module support(h=beam_height,fn=6) {
+    $fn=fn;
     difference() {
-        cylinder(d=support_thick,h=beam_height);
-        translate([support_thick/-2,support_thick/-2,beam_height-thick*2])
+        cylinder(d=support_thick,h=h);
+        translate([support_thick/-2,support_thick/-2,h-thick*2])
         rotate([0,-45,0])
             cube([support_thick,support_thick,thick*2]);
     }
@@ -73,3 +75,6 @@ translate([bdist[0]/2,corner_offset[1],0]) {
     translate([0,bdist[1],0])
         support();
 }
+
+translate([bsize[0]-support_thick,support_thick,0])
+support(h=beam_height*1.5,fn=20);
