@@ -41,10 +41,7 @@ rotate([0,-1*angle,0]) {
     difference() {
         cube([csize[0],csize[1],thick]);
         translate(corner_offset) {
-            hole();
             translate([cdist[0],0,0])
-                hole();
-            translate([0,cdist[1],0])
                 hole();
             translate([cdist[0],cdist[1],0])
                 hole();
@@ -55,13 +52,18 @@ rotate([0,-1*angle,0]) {
     }
     // Standoffs
     translate(corner_offset) {
+        for(j=[0:1]) {
+            translate([cdist[0],cdist[1]*j,0])
+            difference() {
+                cylinder(d=diam+standoff_thick*2,h=standoff_height);
+                cylinder(d=diam,h=standoff_height);
+            }
+        }
         for(i=[0:1]) {
-            for(j=[0:1]) {
-                translate([cdist[0]*i,cdist[1]*j,0])
-                difference() {
-                    cylinder(d=diam+standoff_thick*2,h=standoff_height);
-                    cylinder(d=diam,h=standoff_height);
-                }
+            translate([0,cdist[1]*i,0]) {
+                cylinder(d=diam+standoff_thick,h=standoff_height);
+                translate([0,0,standoff_height])
+                    cylinder(d=2.9,h=1.5);
             }
         }
     }
