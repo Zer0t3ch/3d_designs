@@ -9,14 +9,17 @@ $fn=20;
 
 // Modules
 module hole() cylinder(d=diam, h=thick);
-module support(h=beam_height,fn=6) {
+module support(h=beam_height,fn=6,c=true) {
     $fn=fn;
     difference() {
         cylinder(d=support_thick,h=h);
-        translate([support_thick/-2,support_thick/-2,h-thick*2])
-        rotate([0,-45,0])
-            cube([support_thick,support_thick,thick*2]);
+        if(c) {
+            translate([support_thick/-2,support_thick/-2,h-thick*2])
+                rotate([0,-45,0])
+                cube([support_thick,support_thick,thick*2]);
+        }
     }
+    if(!c) translate([0,0,h]) sphere(d=support_thick);
 }
 
 // Base Platform
@@ -79,4 +82,4 @@ translate([bdist[0]/2,corner_offset[1],0]) {
 }
 
 translate([bsize[0]-support_thick,support_thick,0])
-support(h=beam_height*1.5,fn=20);
+support(h=beam_height*1.5,fn=20,c=false);
