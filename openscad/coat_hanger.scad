@@ -3,11 +3,12 @@ bar_height=75;
 bar_thick=7;
 hook_count=3;
 hook_angle=45;
-hook_thick=5;
+hook_thick=9;
 hook_length=50;
 diam_top=8;
 diam_bot=3;
 diam_avg=(diam_top+diam_bot)/2;
+$fn=26;
 
 module hook() {
     rotate([hook_angle,0,0]) {
@@ -36,7 +37,7 @@ difference() {
 
 // Hooks
 hook_space=bar_length/(hook_count+1);
-translate([(hook_space/2)-hook_thick,bar_height/4.5,bar_thick/2]) {
+translate([(hook_space/2)-hook_thick,bar_height/4.5,0]) {
     hook_space=hook_space*1.5;
     for(a=[0 : hook_space : hook_space*(hook_count-1)]) {
         translate([a,0,0]) hook();
